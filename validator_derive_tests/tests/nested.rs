@@ -311,7 +311,7 @@ fn test_field_validation_errors_replaced_with_nested_validations_fails() {
                 let mut err = ValidationError::new("length");
                 err.add_param(Cow::from("min"), &2u64);
                 err.add_param(Cow::from("value"), &&self.child);
-                errors.add("child", err);
+                errors.add("child".into(), err);
             }
 
             // Then validate the nested vector of structs without checking for existing field errors:
@@ -374,7 +374,7 @@ fn test_field_validations_evaluated_after_nested_validations_fails() {
                 err.add_param(Cow::from("min"), &2u64);
                 err.add_param(Cow::from("value"), &&self.child);
                 result = result.and_then(|_| Err(ValidationErrors::new())).map_err(|mut errors| {
-                    errors.add("child", err);
+                    errors.add("child".into(), err);
                     errors
                 });
             }

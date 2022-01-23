@@ -128,9 +128,9 @@ impl ValidationErrors {
             .collect::<HashMap<_, _>>()
     }
 
-    pub fn add(&mut self, field: &'static str, error: ValidationError) {
+    pub fn add(&mut self, field: Cow<'static, str>, error: ValidationError) {
         if let ValidationErrorsKind::Field(ref mut vec) =
-            self.0.entry(field.into()).or_insert_with(|| ValidationErrorsKind::Field(vec![]))
+            self.0.entry(field).or_insert_with(|| ValidationErrorsKind::Field(vec![]))
         {
             vec.push(error);
         } else {

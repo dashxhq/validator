@@ -183,7 +183,7 @@ pub fn quote_length_validation(
                 #max_err_param_quoted
                 #equal_err_param_quoted
                 err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-                errors.add(#field_name, err);
+                errors.add(#field_name.into(), err);
             }
         );
 
@@ -234,7 +234,7 @@ pub fn quote_range_validation(
                 #min_err_param_quoted
                 #max_err_param_quoted
                 err.add_param(::std::borrow::Cow::from("value"), &#quoted_ident);
-                errors.add(#field_name, err);
+                errors.add(#field_name.into(), err);
             }
         );
 
@@ -257,7 +257,7 @@ pub fn quote_credit_card_validation(
         if !::validator::validate_credit_card(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
@@ -277,7 +277,7 @@ pub fn quote_phone_validation(
         if !::validator::validate_phone(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
@@ -297,7 +297,7 @@ pub fn quote_non_control_character_validation(
         if !::validator::validate_non_control_character(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
@@ -316,7 +316,7 @@ pub fn quote_url_validation(
         if !::validator::validate_url(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
@@ -335,7 +335,7 @@ pub fn quote_email_validation(
         if !::validator::validate_email(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
@@ -357,7 +357,7 @@ pub fn quote_must_match_validation(
                 #quoted_error
                 err.add_param(::std::borrow::Cow::from("value"), &self.#ident);
                 err.add_param(::std::borrow::Cow::from("other"), &self.#other_ident);
-                errors.add(#field_name, err);
+                errors.add(#field_name.into(), err);
             }
         );
 
@@ -399,7 +399,7 @@ pub fn quote_custom_validation(
                 ::std::result::Result::Err(mut err) => {
                     #add_message_quoted
                     err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-                    errors.add(#field_name, err);
+                    errors.add(#field_name.into(), err);
                 },
             };
         );
@@ -424,7 +424,7 @@ pub fn quote_contains_validation(
                 #quoted_error
                 err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
                 err.add_param(::std::borrow::Cow::from("needle"), &#needle);
-                errors.add(#field_name, err);
+                errors.add(#field_name.into(), err);
             }
         );
 
@@ -448,7 +448,7 @@ pub fn quote_regex_validation(
             if !#re_ident.is_match(#validator_param) {
                 #quoted_error
                 err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-                errors.add(#field_name, err);
+                errors.add(#field_name.into(), err);
             }
         );
 
@@ -523,7 +523,7 @@ pub fn quote_schema_validation(v: &SchemaValidation) -> proc_macro2::TokenStream
             ::std::result::Result::Ok(()) => (),
             ::std::result::Result::Err(#mut_err_token err) => {
                 #add_message_quoted
-                errors.add("__all__", err);
+                errors.add("__all__".into(), err);
             },
         };
     );
@@ -554,7 +554,7 @@ pub fn quote_required_validation(
         if !::validator::validate_required(#validator_param) {
             #quoted_error
             err.add_param(::std::borrow::Cow::from("value"), &#validator_param);
-            errors.add(#field_name, err);
+            errors.add(#field_name.into(), err);
         }
     );
 
