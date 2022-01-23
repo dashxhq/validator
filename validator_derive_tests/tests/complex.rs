@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::collections::HashMap;
 
 use lazy_static::lazy_static;
@@ -297,8 +298,7 @@ fn test_works_with_none_values() {
 
 fn unwrap_map<F>(errors: &ValidationErrors, f: F)
 where
-    F: FnOnce(HashMap<&'static str, ValidationErrorsKind>),
+    F: FnOnce(HashMap<Cow<'static, str>, ValidationErrorsKind>),
 {
-    let errors = errors.clone();
     f(errors.errors().clone());
 }
